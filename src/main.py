@@ -1,4 +1,4 @@
-import Statistics
+import statistics
 
 
 def main():
@@ -6,7 +6,7 @@ def main():
 
     data = [70, 300, 250, 104, 250, 80, 135, 205, 150, 170, 284, 112, 140, 38, 123, 64, 100, 112, 96, 310, 100, 359,
             144, 147, 109, 270, 134, 108, 90, 260, 53, 145, 100, 75, 150, 207, 67, 162, 135, 140, 150, 80, 97]
-    Statistics.analyze_data_with_CI(data, 0.9, 10)
+    statistics.analyze_data_with_CI(data, 0.9, 10)
 
 if __name__ == "__main__":
     main()
