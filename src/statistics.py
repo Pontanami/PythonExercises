@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm, t, chi2
 matplotlib.use('TkAgg')
-def analyze_data_with_CI(data: list, confidence_level: float, nr_of_bins: int):
+def analyze_data_with_CI(data: list, confidence_level: float, nr_of_bins: int, show_plot: bool):
     sample_mean = np.mean(data)
     sample_std = np.std(data, ddof=1)
     sample_variance = np.var(data, ddof=1)
@@ -57,4 +57,5 @@ def analyze_data_with_CI(data: list, confidence_level: float, nr_of_bins: int):
 
     print(f"Sample Variance: {sample_variance:.2f}")
     # Show the plot
-    plt.show()
+    if show_plot:
+        plt.show()
