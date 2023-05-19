@@ -1,6 +1,7 @@
 #Python imports
 import types
-import timeit
+import time, timeit
+import functools
 
 #Local imports
 import statistics
@@ -22,10 +23,23 @@ def time_function(func):
         end_time = timeit.default_timer()
     else:
         raise ValueError("Invalid function type")
-
+    
     elapsed_time = end_time - start_time
     print()
     print(f"Elapsed time: {elapsed_time:.6f} seconds")
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper_timer(*args, **kwargs):
+        tic = time.perf_counter()
+        value = func(*args, **kwargs)
+        toc = time.perf_counter()
+        time_taken = toc - tic
+        print(f"Elapsed time: {time_taken:0.4f} seconds")
+        return value
+
+    return wrapper_timer
+
 
 if __name__ == "__main__":
     main()
