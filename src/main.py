@@ -5,7 +5,6 @@ import functools
 
 #Local imports
 import statistics
-
 def time_function(func):
     if isinstance(func, types.LambdaType):
         start_time = timeit.default_timer()
@@ -24,7 +23,7 @@ def timer(func):
         start = time.perf_counter()
         value = func(*args, **kwargs)
         end = time.perf_counter()
-        time_taken = start - end
+        time_taken = end - start
         print()
         print(f"Elapsed time: {time_taken:0.4f} seconds")
         return value
