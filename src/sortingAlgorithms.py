@@ -40,3 +40,39 @@ def quick_sort(arr: list):
             quick_sort_helper(array, pi + 1, high)
 
     quick_sort_helper(arr, 0, len(arr) - 1)
+
+def merge_sort(arr: list):
+
+    def merge(array: list, left: int, middle: int, right: int):
+        left_array = array[left:middle + 1]
+        right_array = array[middle + 1:right + 1]
+        left_index = 0
+        right_index = 0
+        merged_index = left
+
+        while left_index < len(left_array) and right_index < len(right_array):
+            if left_array[left_index] <= right_array[right_index]:
+                array[merged_index] = left_array[left_index]
+                left_index += 1
+            else:
+                array[merged_index] = right_array[right_index]
+                right_index += 1
+            merged_index += 1
+
+        for i in range(left_index, len(left_array)):
+            array[merged_index] = left_array[i]
+            merged_index += 1
+
+        for j in range(right_index, len(right_array)):
+            array[merged_index] = right_array[j]
+            merged_index += 1
+
+
+    def merge_sort_helper(array: list, left: int, right: int):
+        if left < right:
+            middle = (left + right) // 2
+            merge_sort_helper(array, left, middle)
+            merge_sort_helper(array, middle + 1, right)
+            merge(array, left, middle, right)
+
+    merge_sort_helper(arr, 0, len(arr) - 1)
