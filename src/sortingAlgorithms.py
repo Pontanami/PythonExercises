@@ -76,3 +76,30 @@ def merge_sort(arr: list):
             merge(array, left, middle, right)
 
     merge_sort_helper(arr, 0, len(arr) - 1)
+
+def heap_sort(arr: list):
+    def heap_sort_helper(array: list):
+        size = len(array)
+        for i in range(size // 2 - 1, -1, -1):
+            heapify(array, size, i)
+
+        for i in range(size - 1, 0, -1):
+            array[i], array[0] = array[0], array[i]
+            heapify(array, i, 0)
+
+    heap_sort_helper(arr)
+
+def heapify(array: list, size: int, i: int):
+    largest_index = i
+    left_child = 2 * i + 1
+    right_child = 2 * i + 2
+
+    if left_child < size and array[i] < array[left_child]:
+        largest_index = left_child
+
+    if right_child < size and array[largest_index] < array[right_child]:
+        largest_index = right_child
+
+    if largest_index != i:
+        util.swap(array, i, largest_index)
+        heapify(array, size, largest_index)
