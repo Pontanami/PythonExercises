@@ -5,6 +5,7 @@ import functools
 
 #Local imports
 import statistics
+import searchingAlgorithms
 def time_function(func):
     if isinstance(func, types.LambdaType):
         start_time = timeit.default_timer()
@@ -29,11 +30,26 @@ def timer(func):
         return value
 
     return wrapper_timer
+
+def test_algorithm(algorithm_func, expected_result):
+    # Call the algorithm function
+    result = algorithm_func()
+
+    # Compare the result with the expected value
+    if result == expected_result:
+        print("Test Passed: Result matches the expected value.")
+    else:
+        print("Test Failed: Result does not match the expected value.")
+        print(f"Expected: {expected_result}")
+        print(f"Actual: {result}")
 @timer
 def main():
     data = [70, 300, 250, 104, 250, 80, 135, 205, 150, 170, 284, 112, 140, 38, 123, 64, 100, 112, 96, 310, 100, 359,
             144, 147, 109, 270, 134, 108, 90, 260, 53, 145, 100, 75, 150, 207, 67, 162, 135, 140, 150, 80, 97]
     statistics.analyze_data_with_CI(data, 0.9, 10, False)
+
+    sorted_data = sorted(data)
+    test_algorithm(lambda: searchingAlgorithms.interpolation_search(sorted_data, 112), 17)
 
 if __name__ == "__main__":
     main()
