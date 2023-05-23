@@ -1,6 +1,7 @@
 import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.stats as stats
 from scipy.stats import norm, t, chi2
 matplotlib.use('TkAgg')
 def analyze_data_with_CI(data: list, confidence_level: float, nr_of_bins: int, show_plot: bool):
@@ -59,3 +60,28 @@ def analyze_data_with_CI(data: list, confidence_level: float, nr_of_bins: int, s
     # Show the plot
     if show_plot:
         plt.show()
+
+def p_value(data: list, test_statistic: float, alternative: str, distribution: str):
+    p = 0
+    if distribution == 'normal':
+        sample_mean = np.mean(data)
+        sample_std = np.std(data, ddof=1)
+        sample_size = len(data)
+        standard_error = sample_std / np.sqrt(sample_size)
+        z = (test_statistic - sample_mean) / standard_error
+
+        if alternative == 'two-sided':
+            p = 2 * stats.norm.cdf(-np.abs(z))
+        elif alternative == 'less':
+            p = stats.norm.cdf(z)
+        elif alternative == 'greater':
+            p = 1 - stats.norm.cdf(z)
+        else:
+            raise ValueError("alternative not recognized\n"
+                             "should be 'two-sided', 'less' or 'greater'")
+    elif distribution == 't':
+        pass
+    else:
+        raise ValueError("distribution not recognized")
+
+    return p
