@@ -95,4 +95,5 @@ def p_value(data: list, test_statistic: float, alternative: str, distribution: s
         raise ValueError("distribution not recognized")
 
     return p
-
+def sum_of_x_squared(data: list) -> float:
+    return sum([x ** 2 for x in data])
