@@ -97,3 +97,9 @@ def p_value(data: list, test_statistic: float, alternative: str, distribution: s
     return p
 def sum_of_x_squared(data: list) -> float:
     return sum([x ** 2 for x in data])
+
+def n_choose_k_combinations(n: int, k: int) -> int:
+    return int(np.math.factorial(n) / (np.math.factorial(k) * np.math.factorial(n - k)))
+
+def n_choose_k_permutations(n: int, k: int) -> int:
+    return int(np.math.factorial(n) / np.math.factorial(n - k))
