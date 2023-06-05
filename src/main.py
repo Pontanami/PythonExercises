@@ -4,8 +4,7 @@ import time, timeit
 import functools
 
 #Local imports
-import statistics
-import searchingAlgorithms
+import statistics, searchingAlgorithms, matrix
 import util
 def time_function(func):
     if isinstance(func, types.LambdaType):
@@ -59,6 +58,19 @@ def main():
     util.shuffle_array(data, 0.5)
     sorted_data = sorted(data)
     test_algorithm_with_result(searchingAlgorithms.interpolation_search, sorted_data, 112, expected_result=17)
+    util.print_line()
+
+    list1 = [2,5,4,3]
+    new_list= matrix.to_matrix(list1, 2, 2)
+    print("Matrix:")
+    matrix.print_matrix(new_list)
+    a = matrix.determinant(new_list)
+    b = matrix.inverse_matrix(new_list)
+    print("Determinant:")
+    print(a)
+    print("Inverse matrix:")
+    matrix.print_matrix(b)
+    util.print_line()
 
 if __name__ == "__main__":
     main()
