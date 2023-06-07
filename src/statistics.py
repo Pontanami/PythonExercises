@@ -60,6 +60,44 @@ def analyze_data_with_CI(data: list, confidence_level: float, nr_of_bins: int, s
     # Show the plot
     if show_plot:
         plt.show()
+def t_test(data: list, null_hypothesis_mean: float, alternative: str, significance_level: float) -> float:
+    """
+    Perform a t-test to evaluate the null hypothesis regarding the mean of a sample.
+
+    Args:
+        data (list): List of numeric values representing the sample data.
+        null_hypothesis_mean (float): Expected mean value under the null hypothesis.
+        alternative (str): Type of alternative hypothesis ('two-sided', 'less', or 'greater').
+        significance_level (float): Significance level for the test.
+
+    Returns:
+        float: Calculated p-value for the test.
+
+    Raises:
+        ValueError: If the alternative is not one of 'two-sided', 'less', or 'greater'.
+    """
+    if len(data) < 2:
+        raise ValueError("Insufficient data for t-test. The sample size should be at least 2.")
+    if alternative not in ['two-sided', 'less', 'greater']:
+        raise ValueError("Invalid alternative hypothesis. Should be 'two-sided', 'less', or 'greater'.")
+    if not 0 < significance_level < 1:
+        raise ValueError("Invalid significance level. Should be between 0 and 1 (exclusive).")
+
+    sample_mean = np.mean(data)
+    sample_std = np.std(data, ddof=1)
+    sample_size = len(data)
+    standard_error = sample_std / np.sqrt(sample_size)
+    degrees_of_freedom = sample_size - 1
+    t_statistic = (sample_mean - null_hypothesis_mean) / standard_error
+    p_val:int
+    if alternative == 'two-sided':
+        p_val = 2 * t.cdf(-np.abs(t_statistic), df=degrees_of_freedom)
+    elif alternative == 'less':
+        p_val = t.cdf(t_statistic, df=degrees_of_freedom)
+    else:  # alternative == 'greater'
+        p_val = 1 - t.cdf(t_statistic, df=degrees_of_freedom)
+
+    return p_val
 
 def p_value(data: list, test_statistic: float, alternative: str, distribution: str) -> float:
     p = 0
