@@ -65,3 +65,15 @@ def minor(matrix, row, col):
 
 def multiply_matrix_by_scalar(matrix: list, scalar: Fraction):
     return [[scalar * value for value in row] for row in matrix]
+
+def gaussian_elimination(matrix: list):
+    if len(matrix) != len(matrix[0]) - 1:
+        raise ValueError("Invalid matrix. The matrix must be square and augmented.")
+    for i in range(len(matrix)):
+        if matrix[i][i] == 0:
+            raise ValueError("Invalid matrix. The matrix must be non-singular.")
+        for j in range(i + 1, len(matrix)):
+            ratio = matrix[j][i] / matrix[i][i]
+            for k in range(len(matrix[0])):
+                matrix[j][k] -= ratio * matrix[i][k]
+    return matrix
